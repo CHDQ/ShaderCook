@@ -42,11 +42,12 @@ Shader "Custom/SinShader"
                 v2f o;
                 float dist = distance(v.vertex.xyz, float3(0, 0, 0));
                 float s = sin(dist * 6 + _Time.z) / 5;
-                o.vertex = mul(unity_WorldToObject, v.vertex);
+                o.vertex = mul(unity_ObjectToWorld, v.vertex);
                 o.vertex.z = s;
-                o.vertex = mul(unity_ObjectToWorld, o.vertex);
+                o.vertex = mul(unity_WorldToObject, o.vertex);
                 o.vertex = UnityObjectToClipPos(o.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                // o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uv = v.uv;
                 return o;
             }
 
